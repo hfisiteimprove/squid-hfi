@@ -359,9 +359,11 @@ Http::Tunneler::swanSong()
         assert(!callback);
     }
 
-    if (closer) {
-        comm_remove_close_handler(connection->fd, closer);
-        closer = nullptr;
+    if (Comm::IsConnOpen(connection)) {
+        if (closer) {
+            comm_remove_close_handler(connection->fd, closer);
+            closer = nullptr;
+        }
     }
 
     if (reader) {
