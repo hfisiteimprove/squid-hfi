@@ -1421,7 +1421,7 @@ ClientRequestContext::sslBumpAccessCheck()
         //  - When the bumping is already started
         if (!http->getConn()->switchedToHttps() &&
                 !http->getConn()->serverBump())
-            debugs(99, 3, HERE << "YsiteimproveY1 sslBumpNeed " << bumpMode);
+            // debugs(99, 3, HERE << "YsiteimproveY1 sslBumpNeed " << bumpMode);
             http->sslBumpNeed(bumpMode); // for processRequest() to bump if needed and not already bumped
         http->al->ssl.bumpMode = bumpMode; // inherited from bumped connection
         return false;
@@ -1437,6 +1437,10 @@ ClientRequestContext::sslBumpAccessCheck()
             !http->getConn()->port->flags.tunnelSslBumping) {
         http->al->ssl.bumpMode = Ssl::bumpEnd; // SslBump does not apply; log -
         debugs(85, 5, HERE << "cannot SslBump this request");
+
+        debugs(85, 5, HERE << "BsiteimproveB status: " << http->redirect.status
+                            << " ssl_bump: " << Config.accessList.ssl_bump
+                            << " tunnelSslBumping: "  << http->getConn()->port->flags.tunnelSslBumping  << "uri: " << http->uri );
         return false;
     }
 
@@ -1450,7 +1454,7 @@ ClientRequestContext::sslBumpAccessCheck()
 
     if (error) {
         debugs(85, 5, "SslBump applies. Force bump action on error " << errorTypeName(error->type));
-        debugs(99, 3, HERE << "YsiteimproveY2 sslBumpNeed " << bumpMode);
+        // debugs(99, 3, HERE << "YsiteimproveY2 sslBumpNeed " << bumpMode);
         http->sslBumpNeed(Ssl::bumpBump);
         http->al->ssl.bumpMode = Ssl::bumpBump;
         return false;
