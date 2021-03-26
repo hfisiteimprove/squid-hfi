@@ -1511,7 +1511,7 @@ ClientHttpRequest::processRequest()
 
     const bool untouchedConnect = request->method == Http::METHOD_CONNECT && !redirect.status;
 
-    debugs(85, 4, "XsiteimpoveX " << request->method << ' ' << uri << "Status: " <<
+    debugs(85, 4, "XsiteimproveX " << request->method << ' ' << uri << "Status: " <<
             redirect.status << "untouchedConnect: " << untouchedConnect << "sslBumpNeeded " << sslBumpNeeded() <<
             "request->flags.forceTunnel " << request->flags.forceTunnel);
 
