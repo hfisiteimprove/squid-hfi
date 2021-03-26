@@ -1459,7 +1459,7 @@ ClientRequestContext::sslBumpAccessCheck()
     debugs(85, 5, HERE << "SslBump possible, checking ACL");
 
     ACLFilledChecklist *aclChecklist = clientAclChecklistCreate(Config.accessList.ssl_bump, http);
-    aclChecklist->nonBlockingCheck(sslBumpAccessCheckDoneWrapper, this);
+    aclChecklist->nonBlockingCheck(sslBumpAccessCheckDoneWrapper, this); // hfisiteimprove - TODO: check for race condition
     return true;
 }
 
@@ -1472,16 +1472,20 @@ sslBumpAccessCheckDoneWrapper(allow_t answer, void *data)
 {
     ClientRequestContext *calloutContext = static_cast<ClientRequestContext *>(data);
 
-    if (!calloutContext->httpStateIsValid())
+    if (!calloutContext->httpStateIsValid()) {
+        debugs(99, 3, HERE << "ZsiteimproveZ2 sslBumpAccessCheckDoneWrapper calloutContext->httpStateIsValid == false ");
         return;
+    }
     calloutContext->sslBumpAccessCheckDone(answer);
 }
 
 void
 ClientRequestContext::sslBumpAccessCheckDone(const allow_t &answer)
 {
-    if (!httpStateIsValid())
+    if (!httpStateIsValid()) {
+        debugs(99, 3, HERE << "ZsiteimproveZ1 sslBumpAccessCheckDone httpStateIsValid == false ");
         return;
+    }
 
     const Ssl::BumpMode bumpMode = answer.allowed() ?
                                    static_cast<Ssl::BumpMode>(answer.kind) : Ssl::bumpSplice;
