@@ -1432,15 +1432,18 @@ ClientRequestContext::sslBumpAccessCheck()
     // Bumping here can only start with a CONNECT request on a bumping port
     // (bumping of intercepted SSL conns is decided before we get 1st request).
     // We also do not bump redirected CONNECT requests.
+
+    debugs(99, 5, HERE << "CsiteimproveC tunnelSslBumping: " << http->getConn()->port->flags.tunnelSslBumping);
+
     if (http->request->method != Http::METHOD_CONNECT || http->redirect.status ||
             !Config.accessList.ssl_bump ||
             !http->getConn()->port->flags.tunnelSslBumping) {
         http->al->ssl.bumpMode = Ssl::bumpEnd; // SslBump does not apply; log -
         debugs(85, 5, HERE << "cannot SslBump this request");
 
-        debugs(99, 5, HERE << "BsiteimproveB status: " << http->redirect.status
+        debugs(98, 5, HERE << "BsiteimproveB status: " << http->redirect.status
                             << " ssl_bump: " << Config.accessList.ssl_bump
-                            << " tunnelSslBumping: "  << http->getConn()->port->flags.tunnelSslBumping  << "uri: " << http->uri );
+                            << " tunnelSslBumping: "  << http->getConn()->port->flags.tunnelSslBumping  << " uri: " << http->uri );
         return false;
     }
 
