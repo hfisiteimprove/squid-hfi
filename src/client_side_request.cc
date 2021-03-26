@@ -1470,10 +1470,12 @@ ClientRequestContext::sslBumpAccessCheck()
 static void
 sslBumpAccessCheckDoneWrapper(allow_t answer, void *data)
 {
+    debugs(99, 3, HERE << "AsiteimproveA sslBumpAccessCheckDoneWrapper" );
+
     ClientRequestContext *calloutContext = static_cast<ClientRequestContext *>(data);
 
     if (!calloutContext->httpStateIsValid()) {
-        debugs(99, 3, HERE << "ZsiteimproveZ2 sslBumpAccessCheckDoneWrapper calloutContext->httpStateIsValid == false ");
+        debugs(99, 3, HERE << "ZsiteimproveZ2 calloutContext->httpStateIsValid == false ");
         return;
     }
     calloutContext->sslBumpAccessCheckDone(answer);
