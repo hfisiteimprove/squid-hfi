@@ -1438,7 +1438,7 @@ ClientRequestContext::sslBumpAccessCheck()
         http->al->ssl.bumpMode = Ssl::bumpEnd; // SslBump does not apply; log -
         debugs(85, 5, HERE << "cannot SslBump this request");
 
-        debugs(85, 5, HERE << "BsiteimproveB status: " << http->redirect.status
+        debugs(99, 5, HERE << "BsiteimproveB status: " << http->redirect.status
                             << " ssl_bump: " << Config.accessList.ssl_bump
                             << " tunnelSslBumping: "  << http->getConn()->port->flags.tunnelSslBumping  << "uri: " << http->uri );
         return false;
