@@ -1507,11 +1507,11 @@ ClientRequestContext::sslBumpAccessCheckDone(const allow_t &answer)
 void
 ClientHttpRequest::processRequest()
 {
-    debugs(85, 4, request->method << ' ' << uri);
+    // debugs(85, 4, request->method << ' ' << uri);
 
     const bool untouchedConnect = request->method == Http::METHOD_CONNECT && !redirect.status;
 
-    debugs(99, 4, request->method << ' ' << uri << "Status: " <<
+    debugs(85, 4, << "XsiteimpoveX " << request->method << ' ' << uri << "Status: " <<
             redirect.status << "untouchedConnect: " << untouchedConnect << "sslBumpNeeded " << sslBumpNeeded() <<
             "request->flags.forceTunnel " << request->flags.forceTunnel);
 
