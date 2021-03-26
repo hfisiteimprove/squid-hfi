@@ -1421,6 +1421,7 @@ ClientRequestContext::sslBumpAccessCheck()
         //  - When the bumping is already started
         if (!http->getConn()->switchedToHttps() &&
                 !http->getConn()->serverBump())
+            debugs(99, 3, HERE << "YsiteimproveY1 sslBumpNeed " << bumpMode);
             http->sslBumpNeed(bumpMode); // for processRequest() to bump if needed and not already bumped
         http->al->ssl.bumpMode = bumpMode; // inherited from bumped connection
         return false;
@@ -1449,6 +1450,7 @@ ClientRequestContext::sslBumpAccessCheck()
 
     if (error) {
         debugs(85, 5, "SslBump applies. Force bump action on error " << errorTypeName(error->type));
+        debugs(99, 3, HERE << "YsiteimproveY2 sslBumpNeed " << bumpMode);
         http->sslBumpNeed(Ssl::bumpBump);
         http->al->ssl.bumpMode = Ssl::bumpBump;
         return false;
@@ -1483,6 +1485,7 @@ ClientRequestContext::sslBumpAccessCheckDone(const allow_t &answer)
 
     const Ssl::BumpMode bumpMode = answer.allowed() ?
                                    static_cast<Ssl::BumpMode>(answer.kind) : Ssl::bumpSplice;
+    debugs(99, 3, HERE << "YsiteimproveY3 sslBumpNeed " << bumpMode);
     http->sslBumpNeed(bumpMode); // for processRequest() to bump if needed
     http->al->ssl.bumpMode = bumpMode; // for logging
 
