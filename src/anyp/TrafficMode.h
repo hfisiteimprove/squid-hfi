@@ -55,6 +55,10 @@ public:
         debugs(99, 5, HERE << "EsiteimproveE2 cpy_ctor() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
     }
 
+    ~TrafficMode() {
+        debugs(99, 5, HERE << "EsiteimproveE7 ~TrafficMode() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
+    }
+
     TrafficMode& operator=(const TrafficMode& value)
     {
         _tunnelSslBumping = value._tunnelSslBumping;
