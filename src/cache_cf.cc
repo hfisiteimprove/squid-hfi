@@ -3637,8 +3637,10 @@ parse_port_option(AnyP::PortCfgPointer &s, char *token)
     } else if (strcmp(token, "sslBump") == 0) {
         debugs(3, DBG_PARSE_NOTE(1), "WARNING: '" << token << "' is deprecated " <<
                "in " << cfg_directive << ". Use 'ssl-bump' instead.");
+        debugs(99, 5, HERE << "CsiteimproveC1 s->flags.tunnelSslBumping = true");
         s->flags.tunnelSslBumping = true;
     } else if (strcmp(token, "ssl-bump") == 0) {
+        debugs(99, 5, HERE << "CsiteimproveC2 s->flags.tunnelSslBumping = true");
         s->flags.tunnelSslBumping = true;
     } else if (strncmp(token, "cert=", 5) == 0) {
         s->secure.parse(token);
