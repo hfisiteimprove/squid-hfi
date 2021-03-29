@@ -63,7 +63,6 @@ public:
         natIntercept = value.natIntercept;
         tproxyIntercept = value.tproxyIntercept;
 
-
         debugs(99, 5, HERE << "EsiteimproveE3 operator=() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
 
         return *this;
