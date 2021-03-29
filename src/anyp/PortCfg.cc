@@ -67,7 +67,8 @@ AnyP::PortCfg::clone() const
 
     b->transport = transport;
 
-    debugs(99, 5, HERE << "DsiteimproveD flags.tunnelSslBumping: " << flags.tunnelSslBumping);
+    debugs(99, 5, HERE << "DsiteimproveD b->flags.tunnelSslBumping: " << b->flags.tunnelSslBumping
+        << " flags.tunnelSslBumping: " << flags.tunnelSslBumping);
     b->flags = flags;
     b->allow_direct = allow_direct;
     b->vhost = vhost;

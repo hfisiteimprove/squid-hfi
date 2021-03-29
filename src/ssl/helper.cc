@@ -175,6 +175,7 @@ void Ssl::CertValidationHelper::Init()
     bool found = false;
     for (AnyP::PortCfgPointer s = HttpPortList; !found && s != NULL; s = s->next)
         found = s->flags.tunnelSslBumping;
+    debugs(99, 5, HERE << "DsiteimproveD1 found: " << found);
     if (!found)
         return;
 
