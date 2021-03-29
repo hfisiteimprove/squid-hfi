@@ -46,7 +46,9 @@ struct arpreq {
 #include <sys/sockio.h>
 #endif
 #if HAVE_SYS_SYSCTL_H
+#if _SQUID_FREEBSD_ && (__FreeBSD__ >= 7)
 #include <sys/sysctl.h>
+#endif
 #endif
 #if HAVE_NET_ROUTE_H
 #include <net/route.h>
