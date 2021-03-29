@@ -10,7 +10,6 @@
 #include "compat/shm.h"
 
 #if _SQUID_FREEBSD_ && (__FreeBSD__ >= 7)
-#pragma GCC diagnostic ignored "-Werror=cpp"
 #include <sys/sysctl.h>
 #endif
 
