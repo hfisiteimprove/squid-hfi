@@ -20,7 +20,30 @@ namespace AnyP
  */
 class TrafficMode
 {
+    /** marks intercept and decryption of CONNECT (tunnel) SSL traffic
+     *
+     * Indicating the following are required:
+     *  - decryption of CONNECT request
+     *  - URL translation from relative to absolute form
+     *  - authentication prohibited on unwrapped requests (only on the CONNECT tunnel)
+     *  - encrypted outbound server connections
+     *  - peer relay prohibited. TODO: re-encrypt and re-wrap with CONNECT
+     */
+    bool _tunnelSslBumping = false;
+
+
 public:
+    TrafficMode() :
+        _tunnelSslBumping(false),
+        accelSurrogate(false),
+        proxySurrogate(false),
+        natIntercept(false),
+        tproxyIntercept(false) {
+    }
+
+    bool  getTunnelSslBumping() const { return _tunnelSslBumping;}
+    void setTunnelSslBumping(bool value) { _tunnelSslBumping = value;}
+
     /** marks HTTP accelerator (reverse/surrogate proxy) traffic
      *
      * Indicating the following are required:
@@ -61,17 +84,6 @@ public:
      *  - authentication prohibited
      */
     bool tproxyIntercept = false;
-
-    /** marks intercept and decryption of CONNECT (tunnel) SSL traffic
-     *
-     * Indicating the following are required:
-     *  - decryption of CONNECT request
-     *  - URL translation from relative to absolute form
-     *  - authentication prohibited on unwrapped requests (only on the CONNECT tunnel)
-     *  - encrypted outbound server connections
-     *  - peer relay prohibited. TODO: re-encrypt and re-wrap with CONNECT
-     */
-    bool tunnelSslBumping = false;
 
     /** true if the traffic is in any way intercepted
      *

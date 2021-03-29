@@ -2783,7 +2783,7 @@ httpsAccept(const CommAcceptCbParams &params)
 void
 ConnStateData::postHttpsAccept()
 {
-    if (port->flags.tunnelSslBumping) {
+    if (port->flags.getTunnelSslBumping()) {
 #if USE_OPENSSL
         debugs(33, 5, "accept transparent connection: " << clientConnection);
 
@@ -3519,20 +3519,20 @@ clientHttpConnectionsOpen(void)
         }
 
 #if USE_OPENSSL
-        if (s->flags.tunnelSslBumping) {
+        if (s->flags.getTunnelSslBumping()) {
             if (!Config.accessList.ssl_bump) {
                 debugs(33, DBG_IMPORTANT, "WARNING: No ssl_bump configured. Disabling ssl-bump on " << scheme << "_port " << s->s);
-                debugs(99, 5, HERE << "CsiteimproveC3 s->flags.tunnelSslBumping = false");
-                s->flags.tunnelSslBumping = false;
+                debugs(99, 5, HERE << "CsiteimproveC3 s->flags.getTunnelSslBumping() = false");
+                s->flags.setTunnelSslBumping(false);
             }
             if (!s->secure.staticContext && !s->secure.generateHostCertificates) {
                 debugs(1, DBG_IMPORTANT, "Will not bump SSL at " << scheme << "_port " << s->s << " due to TLS initialization failure.");
-                debugs(99, 5, HERE << "CsiteimproveC4 s->flags.tunnelSslBumping = false");
-                s->flags.tunnelSslBumping = false;
+                debugs(99, 5, HERE << "CsiteimproveC4 s->flags.getTunnelSslBumping() = false");
+                s->flags.setTunnelSslBumping(false);
                 if (s->transport.protocol == AnyP::PROTO_HTTP)
                     s->secure.encryptTransport = false;
             }
-            if (s->flags.tunnelSslBumping) {
+            if (s->flags.getTunnelSslBumping()) {
                 // Create ssl_ctx cache for this port.
                 Ssl::TheGlobalContextStorage.addLocalStorage(s->s, s->secure.dynamicCertMemCacheSize);
             }
@@ -3620,7 +3620,7 @@ clientListenerConnectionOpened(AnyP::PortCfgPointer &s, const Ipc::FdNoteId port
     debugs(1, DBG_IMPORTANT, "Accepting " <<
            (s->flags.natIntercept ? "NAT intercepted " : "") <<
            (s->flags.tproxyIntercept ? "TPROXY intercepted " : "") <<
-           (s->flags.tunnelSslBumping ? "SSL bumped " : "") <<
+           (s->flags.getTunnelSslBumping() ? "SSL bumped " : "") <<
            (s->flags.accelSurrogate ? "reverse-proxy " : "")
            << FdNote(portTypeNote) << " connections at "
            << s->listenConn);
@@ -4153,7 +4153,7 @@ ConnStateData::mayTunnelUnsupportedProto()
     return Config.accessList.on_unsupported_protocol
 #if USE_OPENSSL
            &&
-           ((port->flags.isIntercepted() && port->flags.tunnelSslBumping)
+           ((port->flags.isIntercepted() && port->flags.getTunnelSslBumping())
             || (serverBump() && pinning.serverConnection))
 #endif
            ;

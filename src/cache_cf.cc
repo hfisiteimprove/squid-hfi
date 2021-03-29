@@ -3638,10 +3638,10 @@ parse_port_option(AnyP::PortCfgPointer &s, char *token)
         debugs(3, DBG_PARSE_NOTE(1), "WARNING: '" << token << "' is deprecated " <<
                "in " << cfg_directive << ". Use 'ssl-bump' instead.");
         debugs(99, 5, HERE << "CsiteimproveC1 s->flags.tunnelSslBumping = true");
-        s->flags.tunnelSslBumping = true;
+        s->flags.setTunnelSslBumping(true);
     } else if (strcmp(token, "ssl-bump") == 0) {
         debugs(99, 5, HERE << "CsiteimproveC2 s->flags.tunnelSslBumping = true");
-        s->flags.tunnelSslBumping = true;
+        s->flags.setTunnelSslBumping(true);
     } else if (strncmp(token, "cert=", 5) == 0) {
         s->secure.parse(token);
     } else if (strncmp(token, "key=", 4) == 0) {
@@ -3740,12 +3740,12 @@ parsePortCfg(AnyP::PortCfgPointer *head, const char *optionName)
 #if USE_OPENSSL
         /* ssl-bump on https_port configuration requires either tproxy or intercept, and vice versa */
         const bool hijacked = s->flags.isIntercepted();
-        if (s->flags.tunnelSslBumping && !hijacked) {
+        if (s->flags.getTunnelSslBumping() && !hijacked) {
             debugs(3, DBG_CRITICAL, "FATAL: ssl-bump on https_port requires tproxy/intercept which is missing.");
             self_destruct();
             return;
         }
-        if (hijacked && !s->flags.tunnelSslBumping) {
+        if (hijacked && !s->flags.getTunnelSslBumping()) {
             debugs(3, DBG_CRITICAL, "FATAL: tproxy/intercept on https_port requires ssl-bump which is missing.");
             self_destruct();
             return;
@@ -3758,7 +3758,7 @@ parsePortCfg(AnyP::PortCfgPointer *head, const char *optionName)
         }
     } else if (protoName.cmp("FTP") == 0) {
         /* ftp_port does not support ssl-bump */
-        if (s->flags.tunnelSslBumping) {
+        if (s->flags.getTunnelSslBumping()) {
             debugs(3, DBG_CRITICAL, "FATAL: ssl-bump is not supported for ftp_port.");
             self_destruct();
             return;
@@ -3877,7 +3877,7 @@ dump_generic_port(StoreEntry * e, const char *n, const AnyP::PortCfgPointer &s)
     }
 
 #if USE_OPENSSL
-    if (s->flags.tunnelSslBumping)
+    if (s->flags.getTunnelSslBumping())
         storeAppendPrintf(e, " ssl-bump");
 #endif
 

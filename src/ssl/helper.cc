@@ -77,7 +77,8 @@ void Ssl::Helper::Init()
     // TODO: generate host certificates for SNI enabled accel ports
     bool found = false;
     for (AnyP::PortCfgPointer s = HttpPortList; !found && s != NULL; s = s->next)
-        found = s->flags.tunnelSslBumping && s->secure.generateHostCertificates;
+        found = s->flags.getTunnelSslBumping() && s->secure.generateHostCertificates;
+    debugs(99, 5, HERE << "DsiteimproveD3 found: " << found);
     if (!found)
         return;
 
@@ -174,7 +175,7 @@ void Ssl::CertValidationHelper::Init()
     // we need to start ssl_crtd only if some port(s) need to bump SSL
     bool found = false;
     for (AnyP::PortCfgPointer s = HttpPortList; !found && s != NULL; s = s->next)
-        found = s->flags.tunnelSslBumping;
+        found = s->flags.getTunnelSslBumping();
     debugs(99, 5, HERE << "DsiteimproveD1 found: " << found);
     if (!found)
         return;
