@@ -3693,7 +3693,7 @@ void
 add_http_port(char *portspec)
 {
     AnyP::PortCfgPointer s = new AnyP::PortCfg();
-    debugs(0, 5, HERE << "EsiteimproveE6  " << "new AnyP::PortCfg() -> flags ptr: " << &(s->flags));
+    debugs(0, 5, HERE << "EsiteimproveE6 " << "new AnyP::PortCfg() -> flags ptr: " << &(s->flags));
     s->transport = parsePortProtocol(SBuf("HTTP"));
     parsePortSpecification(s, portspec);
     // we may need to merge better if the above returns a list with clones
@@ -3726,6 +3726,7 @@ parsePortCfg(AnyP::PortCfgPointer *head, const char *optionName)
     }
 
     AnyP::PortCfgPointer s = new AnyP::PortCfg();
+    debugs(0, 5, HERE << "EsiteimproveE6 " << "new AnyP::PortCfg() -> flags ptr: " << &(s->flags));
     s->transport = parsePortProtocol(protoName); // default; protocol=... overwrites
     parsePortSpecification(s, token);
 
