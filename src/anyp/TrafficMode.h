@@ -41,6 +41,17 @@ public:
         tproxyIntercept(false) {
     }
 
+    TrafficMode& operator=(const TrafficMode& value)
+    {
+        _tunnelSslBumping = value._tunnelSslBumping;
+        accelSurrogate = value.accelSurrogate;
+        proxySurrogate = value.proxySurrogate;
+        natIntercept = value.natIntercept;
+        tproxyIntercept = value.tproxyIntercept;
+
+        return *this;
+    }
+
     bool  getTunnelSslBumping() const { return _tunnelSslBumping;}
     void setTunnelSslBumping(bool value) { _tunnelSslBumping = value;}
 
