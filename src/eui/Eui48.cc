@@ -46,6 +46,7 @@ struct arpreq {
 #include <sys/sockio.h>
 #endif
 #if HAVE_SYS_SYSCTL_H
+#pragma GCC diagnostic ignored "-Werror=cpp"
 #include <sys/sysctl.h>
 #endif
 #if HAVE_NET_ROUTE_H
