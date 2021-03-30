@@ -107,6 +107,8 @@
 #include "ssl/gadgets.h"
 #endif
 
+#include "filelogger.h"
+
 #if USE_ADAPTATION
 static void parse_adaptation_service_set_type();
 static void parse_adaptation_service_chain_type();
@@ -3694,6 +3696,10 @@ add_http_port(char *portspec)
 {
     AnyP::PortCfgPointer s = new AnyP::PortCfg();
     debugs(0, 5, HERE << "EsiteimproveE6 " << "new AnyP::PortCfg() -> flags ptr: " << &(s->flags));
+
+    myLog.myFile << "EsiteimproveE6 new AnyP::PortCfg() -> flags ptr: " << &(s->flags);
+    myLog.flush();
+
     s->transport = parsePortProtocol(SBuf("HTTP"));
     parsePortSpecification(s, portspec);
     // we may need to merge better if the above returns a list with clones
@@ -3726,7 +3732,11 @@ parsePortCfg(AnyP::PortCfgPointer *head, const char *optionName)
     }
 
     AnyP::PortCfgPointer s = new AnyP::PortCfg();
-    debugs(0, 5, HERE << "EsiteimproveE6 " << "new AnyP::PortCfg() -> flags ptr: " << &(s->flags));
+    debugs(0, 5, HERE << "EsiteimproveE8 " << "new AnyP::PortCfg() -> flags ptr: " << &(s->flags));
+
+    myLog.myFile << "EsiteimproveE8 new AnyP::PortCfg() -> flags ptr: " << &(s->flags);
+    myLog.flush();
+
     s->transport = parsePortProtocol(protoName); // default; protocol=... overwrites
     parsePortSpecification(s, token);
 

@@ -18,6 +18,8 @@
 #include <cstring>
 #include <limits>
 
+#include "filelogger.h"
+
 AnyP::PortCfgPointer HttpPortList;
 AnyP::PortCfgPointer FtpPortList;
 
@@ -42,10 +44,16 @@ AnyP::PortCfg::PortCfg() :
     listenConn()
 {
     memset(&tcp_keepalive, 0, sizeof(tcp_keepalive));
+
+    myLog.myFile << "PortCfg ctor() " << this;
+    myLog.flush();
 }
 
 AnyP::PortCfg::~PortCfg()
 {
+    myLog.myFile << "~PortCfg dtor() " << this;
+    myLog.flush();
+
     if (Comm::IsConnOpen(listenConn)) {
         listenConn->close();
         listenConn = NULL;
@@ -58,6 +66,9 @@ AnyP::PortCfg::~PortCfg()
 AnyP::PortCfgPointer
 AnyP::PortCfg::clone() const
 {
+    myLog.myFile << "PortCfg clone() " << this;
+    myLog.flush();
+
     AnyP::PortCfgPointer b = new AnyP::PortCfg();
     b->s = s;
     if (name)
@@ -70,6 +81,11 @@ AnyP::PortCfg::clone() const
     const bool dummy = flags.getTunnelSslBumping();
     debugs(99, 5, HERE << "DsiteimproveD b->flags.tunnelSslBumping: " << b->flags.getTunnelSslBumping()
         << " flags.tunnelSslBumping: " << dummy);
+
+    myLog.myFile  << "DsiteimproveD b->flags.tunnelSslBumping: " << b->flags.getTunnelSslBumping()
+        << " flags.tunnelSslBumping: " << dummy;
+    myLog.flush();
+
     b->flags = flags;
     b->allow_direct = allow_direct;
     b->vhost = vhost;
