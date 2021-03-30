@@ -18,6 +18,8 @@
 #include <cstring>
 #include <limits>
 
+#include <unistd.h>
+
 #include "filelogger.h"
 
 AnyP::PortCfgPointer HttpPortList;
@@ -45,13 +47,13 @@ AnyP::PortCfg::PortCfg() :
 {
     memset(&tcp_keepalive, 0, sizeof(tcp_keepalive));
 
-    myLog.myFile << "PortCfg ctor() " << this;
+    myLog.myFile << "EsiteimproveE9 PortCfg::ctor() " << this << " flags ptr: " << &flags << " PID " << getpid();
     myLog.flush();
 }
 
 AnyP::PortCfg::~PortCfg()
 {
-    myLog.myFile << "~PortCfg dtor() " << this;
+    myLog.myFile << "EsiteimproveE10 PortCfg::~PortCfg dtor() " << this << " flags ptr: " << &flags << " PID " << getpid();
     myLog.flush();
 
     if (Comm::IsConnOpen(listenConn)) {
@@ -66,7 +68,7 @@ AnyP::PortCfg::~PortCfg()
 AnyP::PortCfgPointer
 AnyP::PortCfg::clone() const
 {
-    myLog.myFile << "PortCfg clone() " << this;
+    myLog.myFile << "EsiteimproveE11 PortCfg::clone() " << this << " flags ptr: " << &flags << " PID " << getpid();
     myLog.flush();
 
     AnyP::PortCfgPointer b = new AnyP::PortCfg();
@@ -82,7 +84,7 @@ AnyP::PortCfg::clone() const
     debugs(99, 5, HERE << "DsiteimproveD b->flags.tunnelSslBumping: " << b->flags.getTunnelSslBumping()
         << " flags.tunnelSslBumping: " << dummy);
 
-    myLog.myFile  << "DsiteimproveD b->flags.tunnelSslBumping: " << b->flags.getTunnelSslBumping()
+    myLog.myFile  << "DsiteimproveD PortCfg::clone() b->flags.tunnelSslBumping: " << b->flags.getTunnelSslBumping()
         << " flags.tunnelSslBumping: " << dummy;
     myLog.flush();
 

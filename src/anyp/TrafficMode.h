@@ -44,7 +44,7 @@ public:
     {
         debugs(99, 5, HERE << "EsiteimproveE1 ctor() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
 
-        myLog.myFile << "EsiteimproveE1 ctor() " << this << " _tunnelSslBumping: " << _tunnelSslBumping;
+        myLog.myFile << "EsiteimproveE1 TrafficMode::ctor() " << this << " _tunnelSslBumping: " << _tunnelSslBumping;
         myLog.flush();
     }
 
@@ -58,13 +58,13 @@ public:
 
         debugs(99, 5, HERE << "EsiteimproveE2 cpy_ctor() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
 
-        myLog.myFile << "EsiteimproveE2 cpy_ctor() " << this << " _tunnelSslBumping: " << _tunnelSslBumping;
+        myLog.myFile << "EsiteimproveE2 TrafficMode::cpy_ctor() " << this << " _tunnelSslBumping: " << _tunnelSslBumping;
         myLog.flush();
     }
 
     ~TrafficMode()
     {
-        debugs(99, 5, HERE << "EsiteimproveE7 ~TrafficMode() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
+        debugs(99, 5, HERE << "EsiteimproveE7 TrafficMode::~TrafficMode() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
     }
 
     TrafficMode& operator=(const TrafficMode& value)
@@ -77,7 +77,7 @@ public:
 
         debugs(99, 5, HERE << "EsiteimproveE3 operator=() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
 
-        myLog.myFile << "EsiteimproveE3 operator=() " << this << " _tunnelSslBumping: " << _tunnelSslBumping;
+        myLog.myFile << "EsiteimproveE3 TrafficMode::&operator=() " << this << " _tunnelSslBumping: " << _tunnelSslBumping;
         myLog.flush();
 
         return *this;
@@ -94,7 +94,7 @@ public:
         _tunnelSslBumping = value;
         debugs(99, 5, HERE << "EsiteimproveE5 setTunnelSslBumping() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
 
-        myLog.myFile << "EsiteimproveE5 setTunnelSslBumping() " << this << " _tunnelSslBumping: " << _tunnelSslBumping;
+        myLog.myFile << "EsiteimproveE5 TrafficMode::setTunnelSslBumping() " << this << " _tunnelSslBumping: " << _tunnelSslBumping;
         myLog.flush();
     }
 

@@ -3523,11 +3523,19 @@ clientHttpConnectionsOpen(void)
             if (!Config.accessList.ssl_bump) {
                 debugs(33, DBG_IMPORTANT, "WARNING: No ssl_bump configured. Disabling ssl-bump on " << scheme << "_port " << s->s);
                 debugs(99, 5, HERE << "CsiteimproveC3 s->flags.getTunnelSslBumping() = false");
+
+                myLog.myFile << "clientHttpConnectionsOpen CsiteimproveC3 s->flags.tunnelSslBumping = false";
+                myLog.flush();
+
                 s->flags.setTunnelSslBumping(false);
             }
             if (!s->secure.staticContext && !s->secure.generateHostCertificates) {
                 debugs(1, DBG_IMPORTANT, "Will not bump SSL at " << scheme << "_port " << s->s << " due to TLS initialization failure.");
                 debugs(99, 5, HERE << "CsiteimproveC4 s->flags.getTunnelSslBumping() = false");
+
+                myLog.myFile << "clientHttpConnectionsOpen CsiteimproveC4 s->flags.tunnelSslBumping = false";
+                myLog.flush();
+
                 s->flags.setTunnelSslBumping(false);
                 if (s->transport.protocol == AnyP::PROTO_HTTP)
                     s->secure.encryptTransport = false;

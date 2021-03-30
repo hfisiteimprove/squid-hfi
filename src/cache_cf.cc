@@ -3640,9 +3640,17 @@ parse_port_option(AnyP::PortCfgPointer &s, char *token)
         debugs(3, DBG_PARSE_NOTE(1), "WARNING: '" << token << "' is deprecated " <<
                "in " << cfg_directive << ". Use 'ssl-bump' instead.");
         debugs(99, 5, HERE << "CsiteimproveC1 s->flags.tunnelSslBumping = true");
+
+        myLog.myFile << "parse_port_option CsiteimproveC1 s->flags.tunnelSslBumping = true";
+        myLog.flush();
+
         s->flags.setTunnelSslBumping(true);
     } else if (strcmp(token, "ssl-bump") == 0) {
         debugs(99, 5, HERE << "CsiteimproveC2 s->flags.tunnelSslBumping = true");
+
+        myLog.myFile << "parse_port_option CsiteimproveC2 s->flags.tunnelSslBumping = true";
+        myLog.flush();
+
         s->flags.setTunnelSslBumping(true);
     } else if (strncmp(token, "cert=", 5) == 0) {
         s->secure.parse(token);
@@ -3694,11 +3702,11 @@ parse_port_option(AnyP::PortCfgPointer &s, char *token)
 void
 add_http_port(char *portspec)
 {
+    myLog.myFile << "EsiteimproveE6 add_http_port";
+    myLog.flush();
+
     AnyP::PortCfgPointer s = new AnyP::PortCfg();
     debugs(0, 5, HERE << "EsiteimproveE6 " << "new AnyP::PortCfg() -> flags ptr: " << &(s->flags));
-
-    myLog.myFile << "EsiteimproveE6 new AnyP::PortCfg() -> flags ptr: " << &(s->flags);
-    myLog.flush();
 
     s->transport = parsePortProtocol(SBuf("HTTP"));
     parsePortSpecification(s, portspec);
@@ -3731,11 +3739,11 @@ parsePortCfg(AnyP::PortCfgPointer *head, const char *optionName)
         return;
     }
 
+    myLog.myFile << "EsiteimproveE8 parsePortCfg";
+    myLog.flush();
+
     AnyP::PortCfgPointer s = new AnyP::PortCfg();
     debugs(0, 5, HERE << "EsiteimproveE8 " << "new AnyP::PortCfg() -> flags ptr: " << &(s->flags));
-
-    myLog.myFile << "EsiteimproveE8 new AnyP::PortCfg() -> flags ptr: " << &(s->flags);
-    myLog.flush();
 
     s->transport = parsePortProtocol(protoName); // default; protocol=... overwrites
     parsePortSpecification(s, token);
