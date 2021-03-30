@@ -18,6 +18,7 @@ libanyp_la_SOURCES = \
 	ProtocolType.h \
 	ProtocolVersion.h \
 	TrafficMode.h \
+	TrafficMode.cc \
 	Uri.cc \
 	Uri.h \
 	UriScheme.cc \

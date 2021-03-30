@@ -9,7 +9,6 @@
 #ifndef SQUID_ANYP_TRAFFIC_MODE_H
 #define SQUID_ANYP_TRAFFIC_MODE_H
 
-#include "Debug.h"
 
 namespace AnyP
 {
@@ -35,52 +34,17 @@ class TrafficMode
 
 
 public:
-    TrafficMode() :
-        _tunnelSslBumping(false),
-        accelSurrogate(false),
-        proxySurrogate(false),
-        natIntercept(false),
-        tproxyIntercept(false) {
-        debugs(99, 5, HERE << "EsiteimproveE1 ctor() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
-    }
+    TrafficMode();
 
-    TrafficMode(const TrafficMode &value)
-    {
-        _tunnelSslBumping = value._tunnelSslBumping;
-        accelSurrogate = value.accelSurrogate;
-        proxySurrogate = value.proxySurrogate;
-        natIntercept = value.natIntercept;
-        tproxyIntercept = value.tproxyIntercept;
+    TrafficMode(const TrafficMode &value);
 
-        debugs(99, 5, HERE << "EsiteimproveE2 cpy_ctor() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
-    }
+    ~TrafficMode();
 
-    ~TrafficMode() {
-        debugs(99, 5, HERE << "EsiteimproveE7 ~TrafficMode() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
-    }
+    TrafficMode& operator=(const TrafficMode& value);
 
-    TrafficMode& operator=(const TrafficMode& value)
-    {
-        _tunnelSslBumping = value._tunnelSslBumping;
-        accelSurrogate = value.accelSurrogate;
-        proxySurrogate = value.proxySurrogate;
-        natIntercept = value.natIntercept;
-        tproxyIntercept = value.tproxyIntercept;
+    bool getTunnelSslBumping() const;
 
-        debugs(99, 5, HERE << "EsiteimproveE3 operator=() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
-
-        return *this;
-    }
-
-    bool getTunnelSslBumping() const {
-        debugs(99, 5, HERE << "EsiteimproveE4 getTunnelSslBumping() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
-        return _tunnelSslBumping;
-    }
-
-    void setTunnelSslBumping(bool value) {
-        _tunnelSslBumping = value;
-        debugs(99, 5, HERE << "EsiteimproveE5 setTunnelSslBumping() " << this << " _tunnelSslBumping: " << _tunnelSslBumping);
-    }
+    void setTunnelSslBumping(bool value);
 
     /** marks HTTP accelerator (reverse/surrogate proxy) traffic
      *
